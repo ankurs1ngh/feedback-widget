@@ -1,17 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import FeedbackWidget from "./FeedbackWidget";
+import reportWebVitals from "./reportWebVitals";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// Function to dynamically render the feedback widget
+window.renderFeedbackWidget = (containerId) => {
+  const widgetRoot = document.getElementById(containerId);
+  if (widgetRoot) {
+    const widget = ReactDOM.createRoot(widgetRoot);
+    widget.render(
+      <React.StrictMode>
+        <FeedbackWidget />
+      </React.StrictMode>
+    );
+  } else {
+    console.error(`Container with ID '${containerId}' not found.`);
+  }
+};
+
+// Report performance metrics
 reportWebVitals();

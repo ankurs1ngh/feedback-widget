@@ -1,70 +1,123 @@
-# Getting Started with Create React App
+# Dynamic Feedback Widget
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+The **Dynamic Feedback Widget** is an embeddable feedback system that allows users to provide responses to dynamically loaded questions. The questions are managed via an admin dashboard and stored in a MongoDB database. The system supports multiple question types including:
+- Yes/No
+- Rating Scale (1-5 stars)
+- Multiple Choice
+- Single Choice
+- Text Feedback
 
-## Available Scripts
+User responses are stored in the database with timestamps and references to the respective questions.
 
-In the project directory, you can run:
+## Features
+- **Floating Feedback Button**: Users can open a popup widget to submit feedback.
+- **Dynamic Question Loading**: Fetches published questions from the backend.
+- **Multiple Answer Types**: Supports various feedback formats.
+- **Admin Dashboard**: Allows managing, publishing, and unpublishing questions.
+- **Embeddable via `<script>` Tag**: Easily integrate the widget on any webpage.
 
-### `npm start`
+## Tech Stack
+- **Frontend**: React, HTML, CSS, JavaScript
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation & Setup
 
-### `npm test`
+### Prerequisites
+Ensure you have the following installed:
+- **Node.js** (Latest LTS version recommended)
+- **MongoDB** (Local or Cloud-based like MongoDB Atlas)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Steps to Run the Project
+#### 1. Clone the Repository
+```sh
+git clone https://github.com/your-repo/dynamic-feedback-widget.git
+cd dynamic-feedback-widget
+```
 
-### `npm run build`
+#### 2. Install Dependencies
+```sh
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### 3. Setup Environment Variables
+Create a `.env` file in the root directory and add the following:
+```env
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/feedbackdb
+```
+*(Update `MONGO_URI` if using MongoDB Atlas)*
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### 4. Start the Server
+```sh
+npm start
+```
+The backend will start at `http://localhost:5000`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### 5. Start the Frontend
+```sh
+cd client
+npm install
+npm start
+```
+The frontend will start at `http://localhost:3000`
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## API Endpoints
+### 1. Question Endpoints
+- `GET /api/questions/published` - Fetch all published questions
+- `POST /api/questions` - Create a new question (Admin only)
+- `PUT /api/questions/:id` - Update a question (Admin only)
+- `DELETE /api/questions/:id` - Soft delete a question
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2. Feedback Endpoints
+- `POST /api/feedback`
+  - **Request Body:**
+    ```json
+    {
+      "questionId": "string",
+      "answer": "string | array | number",
+      "feedbackText": "string"
+    }
+    ```
+  - **Response:**
+    ```json
+    {
+      "message": "Feedback submitted successfully"
+    }
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Embedding the Widget
+To use the widget on any external site, include the following script in your HTML:
+```html
+<script src="http://localhost:5000/widget.js" defer></script>
+```
+This will display a floating feedback button on the page.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Future Enhancements
+- User authentication for feedback tracking
+- More customization options for the widget
+- Dashboard analytics for submitted feedback
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## Contributing
+Feel free to submit issues and pull requests! Follow the standard Git workflow:
+1. Fork the repository
+2. Create a new branch
+3. Commit your changes
+4. Push to your fork and submit a PR
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## License
+MIT License. See `LICENSE` for details.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
