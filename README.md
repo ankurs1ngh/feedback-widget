@@ -34,7 +34,9 @@ Ensure you have the following installed:
 ### Steps to Run the Project
 #### 1. Clone the Repository
 ```sh
-git clone https://github.com/your-repo/dynamic-feedback-widget.git
+git clone https://github.com/ankurs1ngh/feedback-widget.git
+## Backend
+git clone https://github.com/ankurs1ngh/backend-admin.git
 cd dynamic-feedback-widget
 ```
 
